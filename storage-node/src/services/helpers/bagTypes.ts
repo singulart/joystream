@@ -132,6 +132,7 @@ class BagIdParser {
    * Tries to parse the dynamic bag ID, throws an exception on failure.
    */
   parseDynamicBagId(): BagId {
+    console.log(this.bagIdParts)
     if (this.bagIdParts.length === 3) {
       const idString = this.bagIdParts[2]
       const parsedId = parseInt(idString)
@@ -155,6 +156,7 @@ class BagIdParser {
             return constructedBagId
           }
         }
+        console.log('Here')
       }
     }
 

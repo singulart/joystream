@@ -263,11 +263,11 @@ async function verifyWorkerId(
   workerId: number,
   transactorAccount: string
 ): Promise<boolean> {
-  const worker = await api.query.storageWorkingGroup.workerById(workerId)
-  if (!worker.isSome) {
-    logger.error('Provided workerId does not belong to an existing worker')
-    return false
-  }
+//  const worker = await api.query.storageWorkingGroup.workerById(workerId)
+//  if (!worker.isSome) {
+//    logger.error('Provided workerId does not belong to an existing worker')
+//    return false
+//  }
 
   const bucketIds = await getStorageBucketIdsByWorkerId(queryNodeUri, workerId)
   const buckets: [string, PalletStorageStorageBucketRecord][] = (
