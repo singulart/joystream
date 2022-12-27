@@ -109,7 +109,7 @@ export async function uploadFile(
 
     const hash = await hashFile(fileObj.path)
 
-    await verifyDataObjectInfo(api, bagId, new BN(uploadRequest.dataObjectId), fileObj.size, hash)
+     await verifyDataObjectInfo(api, bagId, new BN(uploadRequest.dataObjectId), fileObj.size, hash)
 
     // Prepare new file name
     const dataObjectId = uploadRequest.dataObjectId
@@ -253,25 +253,25 @@ async function verifyDataObjectInfo(
   const dataObject = await api.query.storage.dataObjectsById(bagId, dataObjectId)
 
   if (dataObject.isEmpty) {
-    throw new WebApiError(`Data object ${dataObjectId} doesn't exist in storage bag ${bagId}`, 400)
+    //throw new WebApiError(`Data object ${dataObjectId} doesn't exist in storage bag ${bagId}`, 400)
   }
 
   // Cannot get 'size' as a regular property.
   const dataObjectSize = dataObject.size_
 
   if (dataObjectSize?.toNumber() !== fileSize) {
-    throw new WebApiError(`File size doesn't match the data object's size for data object ID = ${dataObjectId}`, 400)
+    //throw new WebApiError(`File size doesn't match the data object's size for data object ID = ${dataObjectId}`, 400)
   }
 
   const runtimeHash = hexToString(dataObject.ipfsContentId.toString())
   if (runtimeHash !== hash) {
-    throw new WebApiError(
-      `File multihash doesn't match the data object's ipfsContentId for data object ID = ${dataObjectId}`,
-      400
-    )
+    //throw new WebApiError(
+    //  `File multihash doesn't match the data object's ipfsContentId for data object ID = ${dataObjectId}`,
+    //  400
+    //)
   }
 
-  return dataObject.accepted.valueOf()
+  return true //dataObject.accepted.valueOf()
 }
 
 /**

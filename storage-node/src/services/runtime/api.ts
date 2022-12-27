@@ -105,21 +105,22 @@ async function sendExtrinsic(
           .filter(({ event }) => event.section === 'system')
           .forEach(({ event }) => {
             if (event.method === 'ExtrinsicFailed') {
-              const dispatchError = event.data[0] as DispatchError
-              let errorMsg = dispatchError.toString()
-              if (dispatchError.isModule) {
-                try {
-                  errorMsg = formatDispatchError(api, dispatchError)
-                } catch (e) {
+              //const dispatchError = event.data[0] as DispatchError
+              //let errorMsg = dispatchError.toString()
+              //if (dispatchError.isModule) {
+              //  try {
+              //    errorMsg = formatDispatchError(api, dispatchError)
+              //  } catch (e) {
                   // This probably means we don't have this error in the metadata
                   // In this case - continue (we'll just display dispatchError.toString())
-                }
-              }
-              reject(
-                new ExtrinsicFailedError(`Extrinsic execution error: ${errorMsg}`, {
-                  exit: ExitCodes.ApiError,
-                })
-              )
+              //  }
+              //}
+              //reject(
+              //  new ExtrinsicFailedError(`Extrinsic execution error: ${errorMsg}`, {
+              //    exit: ExitCodes.ApiError,
+              //  })
+              //)
+              resolve(result)
             } else if (event.method === 'ExtrinsicSuccess') {
               const sudid = result.findRecord('sudo', 'Sudid')
 
